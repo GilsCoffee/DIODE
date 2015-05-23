@@ -2,54 +2,138 @@
 <html lang="en">
 
 <head>
-    <title>DIODE</title>
-    <h1 id="diodeTitle">DIODE</h1>
-    <h3 id="diodeSubtitle">Diode Integrated Online Development Enviornment</h3>
     
+    <meta charset="UTF-8">
+    <title>DIODE</title>
+    <div id="headContainer">
+    <h1 id="diodeTitle">DIODE</h1>
+    </div>
+
+    <script type=text/javascript src="https://craig.global.ssl.fastly.net/js/mousetrap/mousetrap.min.js?7e022"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+
     <style type="text/css" media="screen">
-        #editor {
+        body {
+            background-image: url("./bkg.png");
+            margin: 0px;
+            margin-top: 20px;
+            padding: 0px;
+        }
+        head {
+            width: 100%;
+            min-width: 1250px;
+            margin-right: 0px;
+        }
+        #headContainer {
+            background-image: url("./headerbkg.png");
+            background-position: 0px 2px;
+            color: white;
+            margin-right: 0px;
+            width: 100%;
+            min-width: 950px;
+        }
+        h1 {
+            margin-left: 100px;
+        }
+        h5 {
+            font-family: "Arial";
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        #container {
+            padding-left: 100px;
+            height: 100%;
+        }
+        .editor {
             width: 800px;
             min-height: 200px;
-            margin-top: 10px;
+            margin-top: 0px;
             border-style: solid;
             border-width: 1px;
+            border-color: #A9A9A9;
         }
-        
-        #diodeTitle{
-            margin:0px;
-        }
-        
         #diodeSubtitle {
             font-size: 20px;
-            color:#B3B3B3;
-            font-family:"Arial";
+            color: #909090;
+            font-family: "Arial";
+        }
+        ol,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style-type: none
+        }
+        #navList li {
+            float: left;
+        }
+        .active {
+            font-weight: bold;
+        }
+        #container div {
+            float: none;
+        }
+        #editorList {
+            float: left;
+            clear: right;
+            margin-right: 15px;
+        }
+        #output {
+            /*position: absolute;
+            left: 920px;
+            top: 187px;*/
+            width: 400px;
+            height: 197px;
+            float: left;
+        }
+        #textContainer{
+            float: left;
+            clear: right;
+            min-height: 203px;
+            margin-bottom: 5px;
+            overflow: auto;
         }
     </style>
-    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
 </head>
 
 <body>
+    <div id="container">
+        <h3 id="diodeSubtitle">DIODE Integrated Online Development Environment</h3>
 
-    <button class="save">Save</button>
-    <div>
+        <button class="save">Save</button>
+        <button class="rename">Rename</button>
+        <button class="compile">Compile, Run and Get Output</button>
+        <!--<button class="deleteButton">Delete Selected File</button>-->
+
+
+        <ol id="navList">
+
+        </ol>
+        <button class="newTab">New Tab</button>
+
+        <h5 id="activeEditorName">Name Holder</h5>
+
+        <div id="textContainer">
+            <ol id="editorList">
+
+            </ol>
+
+            <textarea id="output" readonly="true"></textarea>
+        </div>  
+
+        <div>
+        <input id="findText" placeholder="Text to find" type="text"></input>
         <button class="findButton">Find</button>
-        <input id="findText" type="text"></input>
-    </div>
-    <div>
-        <input id="replaceText" type="text"></input>
+        <input id="replaceText" placeholder="Text to replace with" type="text"></input>
         <button class="replaceButton">Replace</button>
         <button class="replaceAllButton">Replace All</button>
+        </div>
     </div>
     
-    <div id="editor"></div>
+    <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascript.js" charset="utf-8"></script>
 
-    <script src="ace.js" type="text/javascript" charset="utf-8">
-    </script>
-    
-    <script src="javascript.js">
-    </script>
-
-    <script>sendDataToServer();</script>
 
 </body>
 
