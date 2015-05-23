@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DIODE</title>
+    <h1 id="diodeTitle">DIODE</h1>
+    <h3 id="diodeSubtitle">Diode Integrated Online Development Enviornment</h3>
+    
+    <style type="text/css" media="screen">
+        #editor {
+            width: 800px;
+            min-height: 200px;
+            margin-top: 10px;
+            border-style: solid;
+            border-width: 1px;
+        }
+        
+        #diodeTitle{
+            margin:0px;
+        }
+        
+        #diodeSubtitle {
+            font-size: 20px;
+            color:#B3B3B3;
+            font-family:"Arial";
+        }
+    </style>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+
+<body>
+
+    <button class="save">Save</button>
+    <div>
+        <button class="findButton">Find</button>
+        <input id="findText" type="text"></input>
+    </div>
+    <div>
+        <input id="replaceText" type="text"></input>
+        <button class="replaceButton">Replace</button>
+        <button class="replaceAllButton">Replace All</button>
+    </div>
+    
+    <div id="editor"></div>
+
+    <script src="ace.js" type="text/javascript" charset="utf-8">
+    </script>
+    
+    <script src="javascript.js">
+    </script>
+
+    <script>sendDataToServer();</script>
+
+</body>
+
+</html>

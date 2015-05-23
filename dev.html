@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DIODE</title>
+    <h1>DIODE</h1>
+    <style type="text/css" media="screen">
+        #editor {
+            width: 800px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            border-style: solid;
+            border-width: 1px;
+        }
+        .Submit {}
+    </style>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+
+<body>
+
+<ul id="navigationBar">
+  
+</ul>
+    <div id="editor">function foo(items) { var x = "All this is syntax highlighted"; return x; }
+    </div>
+    <button id="addTab">Add an editor</button>
+    <button class="Submit">Submit!</button>
+<div id="tabs">
+    <ul>
+    </ul>
+</div>
+
+
+    <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/eclipse");
+        editor.getSession().setMode("ace/mode/java");
+        editor.setOptions({
+            maxLines: 15
+        });
+        editor.getSession().setUseSoftTabs(true);
+        $('.Submit').click(function() {
+            var value = editor.getSession().getValue();
+            alert(value);
+        });
+    </script>
+    <script type="text/javascript">
+        $.get("test.java", function(data) {
+            editor.setValue(data);;
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+    // initialize tabs
+    $( 'div#tabs' ).tabs();
+
+    // array containing all the editors we will create
+    var editors = [];
+
+    // initialize button listener
+    $('#addTab').on('click', function() {
+
+        console.log('add a tab with an ace editor instance');
+
+        var tabsElement = $('#navigationBar');
+        var tabsUlElement = tabsElement.find('ul');
+
+        // the panel id is a timestamp plus a random number from 0 to 10000
+        var tabUniqueId = new Date().getTime() + Math.floor(Math.random()*10000);
+
+        // create a navigation bar item for the new panel
+        var newTabNavElement = $('<li id="panel_nav_' + tabUniqueId + '"><a href="#panel_' + tabUniqueId + '">' + tabUniqueId + '</a></li>');
+
+        // add the new nav item to the DOM
+        tabsUlElement.append(newTabNavElement);
+
+        // create a new panel DOM
+        var newTabPanelElement = $('<div id="panel_' + tabUniqueId + '" data-tab-id="' + tabUniqueId + '">New editor ' + tabUniqueId + ': <br/></div>');
+
+        tabsElement.append(newTabPanelElement);
+
+        // refresh the tabs widget
+        tabsElement.tabs('refresh');
+
+        var tabIndex = $('#tabs ul li').index($('#panel_nav_' + tabUniqueId));
+
+        console.log('tabIndex: ' + tabIndex);
+
+        // activate the new panel
+        tabsElement.tabs('option', 'active', tabIndex);
+
+        // create the editor dom
+        var newEditorElement = $('<div id="editor_' + tabUniqueId + '">// some code here</div>');
+
+        newTabPanelElement.append(newEditorElement);
+
+        // initialize the editor in the tab
+        var editor = ace.edit('editor_' + tabUniqueId);
+        editor.setTheme("ace/theme/eclipse");
+        editor.getSession().setMode("ace/mode/javascript");
+
+        // set the size of the panel
+        newTabPanelElement.width('600');
+        newTabPanelElement.height('600');
+
+        // set the size of the editor
+        newEditorElement.width('500');
+        newEditorElement.height('500');
+
+        // resize the editor
+        editor.resize();
+
+        editors.push({ id: tabUniqueId, instance: editor });
+
+        // add an editor/panel close button to the panel dom
+        var closeButton = $('<button class="close">close</button>');
+
+        newTabPanelElement.prepend(closeButton);
+
+    });
+
+    $('#tabs').on('click', '.close', function() {
+
+        console.log('close a tab and destroy the ace editor instance');
+
+        console.log($(this).parent());
+
+        var tabUniqueId = $(this).parent().attr('data-tab-id');
+
+        console.log(tabUniqueId);        
+
+        var resultArray = $.grep(editors, function(n,i){
+            return n.id === tabUniqueId;
+        }, true);
+
+        var editor = resultArray[0].instance;
+
+        // destroy the editor instance
+        editor.destroy();
+
+        // remove the panel and panel nav dom
+        $('#tabs').find('#panel_nav_' + tabUniqueId).remove();
+        $('#tabs').find('#panel_' + tabUniqueId).remove();
+
+    });
+
+});
+    </script>
+
+</body>
+
+</html>
